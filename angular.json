@@ -7,8 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "inlineTemplate": true,
-          "inlineStyle": true,
+          "inlineTemplate": false,
+          "inlineStyle": false,
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -50,7 +50,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css",
+              "src/assets/vendors/iconfonts/ionicons/dist/css/ionicons.css",
+              "src/assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css",
+              "src/assets/vendors/css/vendor.bundle.base.css",
+              "src/assets/vendors/css/vendor.bundle.addons.css",
+              "src/assets/css/shared/style.css",
+              "src/assets/css/demo_1/style.css"
             ],
             "scripts": []
           },
