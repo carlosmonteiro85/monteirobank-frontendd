@@ -39,16 +39,16 @@
 
 //       this.renderer.listen(dropdown, 'click', (event: Event) => {
 //         event.preventDefault();
-//         this.toggleDropdown(collapseTarget);
+//          this.utilService.toggleDropdown(collapseTarget);
 //       });
 
 //       this.renderer.listen(collapseTarget, 'mouseleave', () => {
-//         this.closeDropdown(collapseTarget);
+//          this.utilService.closeDropdown(collapseTarget);
 //       });
 
 //       this.renderer.listen('document', 'click', (event: Event) => {
 //         if (!dropdown.contains(event.target as Node) && !collapseTarget.contains(event.target as Node)) {
-//           this.closeDropdown(collapseTarget);
+//            this.utilService.closeDropdown(collapseTarget);
 //         }
 //       });
 //     });
@@ -57,9 +57,9 @@
 //   private toggleDropdown(element: HTMLElement): void {
 //     const isVisible = element.classList.contains('show');
 //     if (isVisible) {
-//       this.closeDropdown(element);
+//        this.utilService.closeDropdown(element);
 //     } else {
-//       this.openDropdown(element);
+//        this.utilService.openDropdown(element);
 //     }
 //   }
 
@@ -72,6 +72,7 @@
 //   }
 // }
 import { Component, OnInit, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -82,7 +83,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   private activeDropdown: HTMLElement | null = null;
 
-  constructor(private elRef: ElementRef, private renderer: Renderer2) { }
+  constructor(
+    private elRef: ElementRef, 
+    private renderer: Renderer2,
+    private utilService: UtilsService
+  ) { }
 
   ngOnInit(): void {
     // Lógica de inicialização do componente, se necessário
@@ -96,44 +101,21 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   private initializeDropdownBehavior(): void {
     const dropdowns = this.elRef.nativeElement.querySelectorAll('.nav-item[data-toggle="collapse"]');
 
+
     dropdowns.forEach((dropdown: HTMLElement) => {
       const targetId = dropdown.getAttribute('href')?.substring(1);
       const collapseTarget = this.elRef.nativeElement.querySelector(`#${targetId}`) as HTMLElement;
 
       this.renderer.listen(dropdown, 'click', (event: Event) => {
         event.preventDefault();
-        this.toggleDropdown(collapseTarget);
+         this.utilService.toggleDropdown(collapseTarget);
       });
     });
 
     this.renderer.listen('document', 'click', (event: Event) => {
       if (this.activeDropdown && !this.activeDropdown.contains(event.target as Node)) {
-        this.closeDropdown(this.activeDropdown);
+         this.utilService.closeDropdown(this.activeDropdown);
       }
     });
-  }
-
-  private toggleDropdown(element: HTMLElement): void {
-    const isVisible = element.classList.contains('show');
-    if (isVisible) {
-      this.closeDropdown(element);
-    } else {
-      this.openDropdown(element);
-    }
-  }
-
-  private openDropdown(element: HTMLElement): void {
-    if (this.activeDropdown && this.activeDropdown !== element) {
-      this.closeDropdown(this.activeDropdown);
-    }
-    this.renderer.addClass(element, 'show');
-    this.activeDropdown = element;
-  }
-
-  private closeDropdown(element: HTMLElement): void {
-    this.renderer.removeClass(element, 'show');
-    if (this.activeDropdown === element) {
-      this.activeDropdown = null;
-    }
   }
 }
