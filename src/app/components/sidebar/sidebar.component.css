@@ -7,3 +7,12 @@
     @import '../../../assets/css/shared/style.css';
     @import '../../../assets/css/demo_1/style.css';
   }
+
+  .collapse {
+    display: none; /* Ocultar por padrão */
+  }
+  
+  .collapse.show {
+    display: block; /* Mostrar quando a classe show estiver presente */
+  }
+  
