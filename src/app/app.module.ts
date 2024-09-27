@@ -10,6 +10,7 @@ import { BlankComponent } from './components/blank/blank.component';
 import { HomeComponent } from './components/home/home.component';
 import { TarefasComponent } from './components/tarefas/tarefas.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { CadastrarTarefasComponent } from './components/cadastrar-tarefas/cadastrar-tarefas.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
     BlankComponent,
     HomeComponent,
     TarefasComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    CadastrarTarefasComponent
   ],
   imports: [
     BrowserModule,
