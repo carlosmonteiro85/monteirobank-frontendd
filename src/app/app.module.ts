@@ -11,6 +11,13 @@ import { HomeComponent } from './components/home/home.component';
 import { TarefasComponent } from './components/tarefas/tarefas.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { CadastrarTarefasComponent } from './components/cadastrar-tarefas/cadastrar-tarefas.component';
+import { LancamentosComponent } from './components/lancamentos/lancamentos.component';
+import { ListLancamentosComponent } from './components/list-lancamentos/list-lancamentos.component';
+import { ListReceitasComponent } from './components/list-receitas/list-receitas.component';
+import { CategoriaComponent } from './components/categoria/categoria.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AlertaComponent } from './components/alerta/alerta.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +29,19 @@ import { CadastrarTarefasComponent } from './components/cadastrar-tarefas/cadast
     HomeComponent,
     TarefasComponent,
     PageHeaderComponent,
-    CadastrarTarefasComponent
+    CadastrarTarefasComponent,
+    LancamentosComponent,
+    ListLancamentosComponent,
+    ListReceitasComponent,
+    CategoriaComponent,
+    AlertaComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,               // Se estiver usando template-driven forms
+    ReactiveFormsModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

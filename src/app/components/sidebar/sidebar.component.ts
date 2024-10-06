@@ -72,7 +72,7 @@
 //   }
 // }
 import { Component, OnInit, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
-import { UtilsService } from 'src/app/services/utils.service';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-sidebar',
