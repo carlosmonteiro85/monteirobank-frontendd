@@ -51,7 +51,7 @@
                         <small class="text-danger">O campo é obrigatório</small>
                       </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleTextarea1">DESCRIÇÃO</label>
                       <textarea 
                         [formControl]="descricao"  
@@ -60,6 +60,19 @@
                         placeholder="Digite uma breve descrição">
                       </textarea>
                       <div *ngIf="descricao.invalid && descricao.touched">
+                        <small class="text-danger">O campo é obrigatório</small>
+                      </div>
+                    </div> -->
+                    <div class="form-group">
+                      <label for="dataCadastro">DESCRIÇÃO</label>
+                      <input 
+                        type="text" 
+                        class="form-control" 
+                        id="dataCadastro" 
+                        placeholder="Informe a descrição"
+                        [formControl]="descricao"
+                      />
+                      <div *ngIf="descricao.invalid && (descricao.touched || descricao.dirty)">
                         <small class="text-danger">O campo é obrigatório</small>
                       </div>
                     </div>
