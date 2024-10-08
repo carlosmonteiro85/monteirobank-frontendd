@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { LancamentoService } from 'src/app/service/lancamento.service';
 
 @Component({
   selector: 'app-home',
@@ -7,16 +8,30 @@ import { Chart, registerables } from 'chart.js';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  totalReceita: string = '';
+  totalDespesa: string = '';
+
+  totalReceitaAnual: string = '';
+  totalDespesaAnual: string = '';
+
+  porcentagemDespesa: string = '';
+  porcentagemReceita: string = '';
 
   @ViewChild('salesStatisticsOverview') salesStatisticsOverviewCanvas: ElementRef<HTMLCanvasElement>;
   chart: Chart;
 
-  constructor() {
+  constructor(private lancamentoService: LancamentoService) {
     Chart.register(...registerables);
   }
 
   ngOnInit(): void {
-    // Inicialização caso necessário
+    this.getTotalDespesa();
+    this.getTotalReceita();
+    this.getTotalReceitaAnual();
+    this.getTotalDespesaAnual();
+
+    this.getPorcentagemDespesa();
+    this.getPorcentagemReceita();
   }
 
   ngAfterViewInit(): void {
@@ -89,5 +104,75 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.chart.data.datasets[0].data = newData[period].revenueData;
     this.chart.data.datasets[1].data = newData[period].costData;
     this.chart.update();
+  }
+
+  getTotalReceita() {
+    this.lancamentoService.getTotalMensal(1).subscribe(
+      response => {
+        this.totalReceita = response;
+      },
+      error => {
+        console.error('Erro ao obter a versão:', error);
+      }
+    );
+  }
+
+  getTotalDespesa() {
+    this.lancamentoService.getTotalMensal(2).subscribe(
+      response => {
+        this.totalDespesa = response;
+      },
+      error => {
+        console.error('Erro ao obter a versão:', error);
+      }
+    );
+  }
+
+  getTotalReceitaAnual() {
+    this.lancamentoService.getTotalAno(1).subscribe(
+      response => {
+        this.totalReceitaAnual = response;
+      },
+      error => {
+        console.error('Erro ao obter a versão:', error);
+      }
+    );
+  }
+
+  getTotalDespesaAnual() {
+    this.lancamentoService.getTotalAno(2).subscribe(
+      response => {
+        this.totalDespesaAnual = response;
+      },
+      error => {
+        console.error('Erro ao obter a versão:', error);
+      }
+    );
+  }
+
+  getPorcentagemReceita(): string {
+    let numeroReceita = '';
+    this.lancamentoService.getPorcentagem(1).subscribe(
+      response => {
+        this.porcentagemReceita =  response;
+      },
+      error => {
+        console.error('Erro ao obter a versão:', error);
+      }
+    );
+    return numeroReceita;
+  }
+
+  getPorcentagemDespesa() {
+    let numeroReceita = '';
+    this.lancamentoService.getPorcentagem(2).subscribe(
+      response => {
+        this.porcentagemDespesa =  response;
+      },
+      error => {
+        console.error('Erro ao obter a versão:', error);
+      }
+    );
+    return numeroReceita;
   }
 }

@@ -17,5 +17,4 @@ export class DominiosService {
   getVersao() {
     return this.http.get<string>(`${API_CONFIG.baseUrl}/dominios/versao`, { responseType: 'text' as 'json' });
   }
-
 }

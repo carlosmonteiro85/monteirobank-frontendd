@@ -21,4 +21,16 @@ export class LancamentoService {
   findAll(tipoCategoria: number) {
     return this.http.get<Lancamento[]>(`${API_CONFIG.baseUrl}/lancamento/${tipoCategoria}`);
   }
+
+  getTotalMensal(tipoCategoria: number) {
+    return this.http.get<string>(`${API_CONFIG.baseUrl}/lancamento/total-lancamentos/${tipoCategoria}`, { responseType: 'text' as 'json' });
+  }
+
+  getTotalAno(tipoCategoria: number) {
+    return this.http.get<string>(`${API_CONFIG.baseUrl}/lancamento/total-lancamentos-anual/${tipoCategoria}`, { responseType: 'text' as 'json' });
+  }
+
+  getPorcentagem(tipoCategoria: number) {
+    return this.http.get<string>(`${API_CONFIG.baseUrl}/lancamento/porcentagens/${tipoCategoria}`, { responseType: 'text' as 'json' });
+  }
 }
