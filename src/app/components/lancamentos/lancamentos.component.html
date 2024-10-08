@@ -7,43 +7,61 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <app-page-header [pageTitle]="'Lançamentos'"></app-page-header>
-  
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <form class="forms-sample">
+                  <form class="forms-sample" (ngSubmit)="create()">
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Tipo Lançamento</label>
+                      <label for="exampleFormControlSelect1">TIPO LANÇAMENTO</label>
                       <select 
                         class="form-control form-control-lg" 
                         id="exampleFormControlSelect1" 
                         [(ngModel)]="tipoLancamento" 
                         (change)="onTipoLancamentoChange()" 
-                        name="tipoLancamento"> <!-- Adicione o name aqui -->
-                        <option value="0" disabled selected>Selecione um tipo de lançamento</option>
-                        <option value="1">Despesa</option>
-                        <option value="2">Receita</option>
+                        name="tipoLancamento"> 
+                        <option value="0" disabled selected>SELECIONE UMA OPÇÃO</option>
+                        <option value="1">DESPESA</option>
+                        <option value="2">RECEITA</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputName1">Data cadastro</label>
-                      <input type="date" class="form-control" id="exampleInputName1" placeholder="Name">
+                      <label for="dataCadastro">DATA CADASTRO</label>
+                      <input 
+                        type="date" 
+                        class="form-control" 
+                        id="dataCadastro" 
+                        placeholder="Informe a Data de Cadastro"
+                        [formControl]="dataCadastro"
+                      />
+                      <div *ngIf="dataCadastro.invalid && (dataCadastro.touched || dataCadastro.dirty)">
+                        <small class="text-danger">O campo é obrigatório</small>
+                      </div>
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlSelect2">Categoria</label>
+                      <label for="tipoCategoria">Categoria</label>
                       <select 
                         class="form-control form-control-lg" 
-                        id="exampleFormControlSelect2" 
-                        [(ngModel)]="selectedCategoria" 
-                        name="selectedCategoria"> <!-- Adicione o name aqui -->
-                        <option value="" disabled selected>Selecione uma categoria</option>
+                        id="tipoCategoria" 
+                        [formControl]="idCategoria">
+                        <option value="0" disabled>SELECIONE UMA OPÇÃO</option>
                         <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.descricao }}</option>
                       </select>
+                      <div *ngIf="idCategoria.invalid && idCategoria.touched">
+                        <small class="text-danger">O campo é obrigatório</small>
+                      </div>
                     </div>
                     <div class="form-group">
-                      <label for="exampleTextarea1">Descrição</label>
-                      <textarea class="form-control" id="exampleTextarea1" rows="2"></textarea>
+                      <label for="exampleTextarea1">DESCRIÇÃO</label>
+                      <textarea 
+                        [formControl]="descricao"  
+                        class="form-control" 
+                        id="descricao" rows="2"
+                        placeholder="Digite uma breve descrição">
+                      </textarea>
+                      <div *ngIf="descricao.invalid && descricao.touched">
+                        <small class="text-danger">O campo é obrigatório</small>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">Valor</label>
@@ -51,19 +69,45 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="0.00">
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          [formControl]="valor" 
+                          id="exampleInputName1" 
+                          placeholder="0.00">
+                      </div>
+                      <div *ngIf="valor.invalid && valor.touched">
+                        <small class="text-danger">O campo é obrigatório</small>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputName1">Pago em</label>
-                      <input type="date" class="form-control" id="exampleInputName1" placeholder="Name">
+                      <label for="exampleInputName1">PAGO EM</label>
+                      <input 
+                        type="date" 
+                        [formControl]="pagoEm" 
+                        class="form-control" 
+                        id="pagoEm"
+                         placeholder="data do pagamento"
+                        />
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">Status</label>
-                      <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+                      <label for="exampleInputCity1">STATUS</label>
+                      <select 
+                      class="form-control form-control-lg" 
+                      id="codStatus"
+                      [formControl]="codStatus"  
+                      name="codStatus"> 
+                      <option value="0" disabled selected>SELECIONE UMA OPÇÃO</option>
+                      <option value="1">PENDENTE</option>
+                      <option value="2">PAGO</option>
+                      <option value="3">VENCENDO</option>
+                    </select>
+                    <div *ngIf="codStatus.invalid && codStatus.touched">
+                      <small class="text-danger">O campo é obrigatório</small>
                     </div>
-                    <button type="submit" class="btn btn-success mr-2">Submit</button>
-                    <button class="btn btn-light">Cancel</button>
+                    </div>
+                    <button type="submit" class="btn btn-success mr-2">Salvar</button>
+                    <button type="button" class="btn btn-light" (click)="resetForm()">Cancelar</button>
                   </form>
                 </div>
               </div>
