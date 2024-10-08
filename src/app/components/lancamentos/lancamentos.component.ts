@@ -22,6 +22,7 @@ export class LancamentosComponent implements OnInit {
   idCategoria = new FormControl('0', [Validators.required]);
   descricao = new FormControl('', [Validators.required]);
   valor = new FormControl('', [Validators.required]);
+  dataVencimento = new FormControl('', [Validators.required]);
   pagoEm = new FormControl('');
   codStatus = new FormControl('0', [Validators.required]);
   alerta = new AlertaComponent();
@@ -42,6 +43,7 @@ export class LancamentosComponent implements OnInit {
         this.idCategoria.value || this.selectedCategoria,
         this.descricao.value,
         this.valor.value,
+        this.dataVencimento.value,
         this.pagoEm.value,
         this.codStatus.value
       );

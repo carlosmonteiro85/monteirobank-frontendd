@@ -13,7 +13,6 @@ export class FooterComponent implements OnInit {
   constructor(private dominiosService: DominiosService) { }
 
   ngOnInit(): void {
-    console.log('aqui');
     this.getVersao();
   }
 
@@ -21,12 +20,11 @@ export class FooterComponent implements OnInit {
     this.dominiosService.getVersao().subscribe(
       response => {
         this.versao = response;
-        console.log('Versão recebida:', response);
       },
       error => {
         console.error('Erro ao obter a versão:', error);
       }
     );
-}
+  }
 
 }

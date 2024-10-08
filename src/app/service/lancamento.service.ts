@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Lancamento } from '../models/lancamento';
 import { API_CONFIG } from '../config/api.config';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,9 @@ export class LancamentoService {
       observe:'response',
       responseType: 'text'
     })  
+  }
+
+  findAll(tipoCategoria: number) {
+    return this.http.get<Lancamento[]>(`${API_CONFIG.baseUrl}/lancamento/${tipoCategoria}`);
   }
 }

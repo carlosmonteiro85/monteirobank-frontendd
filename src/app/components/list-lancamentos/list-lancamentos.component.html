@@ -6,7 +6,7 @@
         <app-sidebar></app-sidebar>
         <div class="main-panel">
             <div class="content-wrapper">
-                <app-page-header></app-page-header>
+                <app-page-header [pageTitle]="'Despesas'" ></app-page-header>
                 <div class="row">
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
@@ -26,42 +26,22 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let lancamento of lancamentos">
-                                            <td>{{ lancamento.data }}</td>
+                                            <td>{{ lancamento.dataCadastro }}</td>
                                             <td>{{ lancamento.categoria }}</td>
                                             <td>{{ lancamento.descricao }}</td>
                                             <td class="text-danger"> {{ lancamento.impactoReceita }}% <i class="mdi mdi-arrow-down"></i>
                                             </td>
                                             <td>{{ lancamento.valor }}</td>
                                             <td>{{ lancamento.dataVencimento }}</td>
-                                            <td>{{ lancamento.dataPagamento }}</td>
-                                            <td>
-                                                <label class="badge badge-danger">{{ lancamento.status }}</label>
+                                            <td>{{ lancamento.pagoEm }}</td>
+                                            <td *ngIf="lancamento.codStatus === 1">
+                                                <label class="badge badge-danger">Pendente</label>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>01/10/2024</td>
-                                            <td>Cartão BB</td>
-                                            <td>Cartão de credito</td>
-                                            <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
-                                            </td>
-                                            <td>3000.00</td>
-                                            <td>01/10/2024</td>
-                                            <td>01/10/2024</td>
-                                            <td>
-                                                <label class="badge badge-warning">Vencendo</label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>01/10/2024</td>
-                                            <td>Cartão BB</td>
-                                            <td>Cartão de credito</td>
-                                            <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
-                                            </td>
-                                            <td>3000.00</td>
-                                            <td>01/10/2024</td>
-                                            <td>01/10/2024</td>
-                                            <td>
+                                            <td *ngIf="lancamento.codStatus === 2">
                                                 <label class="badge badge-success">Pago</label>
+                                            </td>
+                                            <td *ngIf="lancamento.codStatus === 3">
+                                                <label class="badge badge-warning">Vencido</label>
                                             </td>
                                         </tr>
                                     </tbody>

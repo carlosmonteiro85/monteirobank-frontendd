@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { LancamentoList } from 'src/app/models/lancamento-list';
+import { LancamentoService } from 'src/app/service/lancamento.service';
+import { UtilitariosService } from 'src/app/service/utilitarios.service';
 
 @Component({
   selector: 'app-list-lancamentos',
@@ -9,23 +12,30 @@ import { LancamentoList } from 'src/app/models/lancamento-list';
 export class ListLancamentosComponent implements OnInit {
   lancamentos: LancamentoList[] = [];
 
-  constructor() { }
+  constructor(private lancamentosService: LancamentoService) { }
 
   ngOnInit(): void {
     this.findAll();
   }
 
-  findAll(){
-    // this.usuariosService.findAll().subscribe(response => {
-    //   this.usuarios = response;
-    // }, error => {
-    //   console.log(error);
-    // });
-
-    this.lancamentos = [
-      new LancamentoList(new Date('2024-10-10'), 'Cartão BB', 'Cartão Credito', '28.76', 150.0, new Date('2024-10-10'), new Date('2024-10-05'), 'Pendente'),
-      new LancamentoList(new Date('2024-10-10'), 'Cartão NU', 'Cartão Credito','28.76', 80.0, new Date('2024-09-30'), null, 'Vencendo'),
-      new LancamentoList(new Date('2024-10-10'), 'Cartão Inter', 'Cartão Credito','28.76', 200.0, new Date('2024-09-25'), new Date('2024-09-22'), 'Pago')
-    ];
+  async findAll() {
+    try {
+        const response = await this.lancamentosService.findAll(1).toPromise();
+        this.lancamentos = await Promise.all(response.map(async (item: any) => {
+            return new LancamentoList(
+                item.id,
+                UtilitariosService.formatDate(new Date(item.dataCadastro)),
+                item.categoria,
+                item.descricao,
+                item.impactoReceita.toString(),
+                item.valor,
+                UtilitariosService.formatDate(new Date(item.pagoEm)),
+                item.dataVencimento != null ? UtilitariosService.formatDate(new Date(item.dataVencimento)) : null,
+                item.codStatus
+            );
+        }));
+    } catch (error) {
+        console.log(error);
+    }
   }
 }

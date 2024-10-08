@@ -6,7 +6,7 @@
         <app-sidebar></app-sidebar>
         <div class="main-panel">
             <div class="content-wrapper">
-                <app-page-header></app-page-header>
+                <app-page-header [pageTitle]="'Receitas'"></app-page-header>
                 <div class="row">
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
@@ -24,37 +24,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>01/10/2024</td>
-                                            <td>Salário</td>
-                                            <td>meu salario</td>
-                                            <td>3000.00</td>
-                                            <td>01/10/2024</td>
-                                            <td>01/10/2024</td>
-                                            <td>
+                                        <tr *ngFor="let lancamento of lancamentos">
+                                            <td>{{ lancamento.dataCadastro }}</td>
+                                            <td>{{ lancamento.categoria }}</td>
+                                            <td>{{ lancamento.descricao }}</td>
+                                            <td>{{ lancamento.valor }}</td>
+                                            <td>{{ lancamento.dataVencimento }}</td>
+                                            <td>{{ lancamento.pagoEm }}</td>
+                                            <td *ngIf="lancamento.codStatus === 1">
                                                 <label class="badge badge-danger">Pendente</label>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>01/10/2024</td>
-                                            <td>Cartão BB</td>
-                                            <td>Cartão de credito</td>
-                                            <td>3000.00</td>
-                                            <td>01/10/2024</td>
-                                            <td>01/10/2024</td>
-                                            <td>
-                                                <label class="badge badge-warning">Vencendo</label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>01/10/2024</td>
-                                            <td>Cartão BB</td>
-                                            <td>Cartão de credito</td>
-                                            <td>3000.00</td>
-                                            <td>01/10/2024</td>
-                                            <td>01/10/2024</td>
-                                            <td>
+                                            <td *ngIf="lancamento.codStatus === 2">
                                                 <label class="badge badge-success">Pago</label>
+                                            </td>
+                                            <td *ngIf="lancamento.codStatus === 3">
+                                                <label class="badge badge-warning">Vencido</label>
                                             </td>
                                         </tr>
                                     </tbody>
