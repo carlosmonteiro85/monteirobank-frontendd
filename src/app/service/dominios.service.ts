@@ -13,4 +13,9 @@ export class DominiosService {
   getCategorias(tipoCategoria: number) {
     return this.http.get<Categoria[]>(`${API_CONFIG.baseUrl}/dominios/${tipoCategoria}`);
   }
+
+  getVersao() {
+    return this.http.get<string>(`${API_CONFIG.baseUrl}/dominios/versao`, { responseType: 'text' as 'json' });
+}
+
 }

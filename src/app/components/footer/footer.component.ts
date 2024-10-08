@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DominiosService } from 'src/app/service/dominios.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  versao: string = '';
+
+  constructor(private dominiosService: DominiosService) { }
 
   ngOnInit(): void {
+    console.log('aqui');
+    this.getVersao();
   }
+
+  getVersao() {
+    this.dominiosService.getVersao().subscribe(
+      response => {
+        this.versao = response;
+        console.log('Versão recebida:', response);
+      },
+      error => {
+        console.error('Erro ao obter a versão:', error);
+      }
+    );
+}
 
 }
